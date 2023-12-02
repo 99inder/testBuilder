@@ -86,7 +86,7 @@
 
 // export default Options;
 
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { PiDotsThreeCircleVerticalLight } from "react-icons/pi"
 import { IoMdCloseCircle, IoIosAddCircleOutline } from "react-icons/io";
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';

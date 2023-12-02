@@ -1,5 +1,6 @@
 import CategoryTypeQuestion from '../Components/Core/FormBuilder/CategoryTypeQuestion';
 import ClozeTypeQuestion from '../Components/Core/FormBuilder/ClozeTypeQuestion';
+import ComprehensionTypeQuestion from '../Components/Core/FormBuilder/ComprehensionTypeQuestion';
 
 const FormBuilder = () => {
     const handleSubmit = (e) => {
@@ -18,6 +19,7 @@ const FormBuilder = () => {
             >
                 <CategoryTypeQuestion />
                 <ClozeTypeQuestion />
+                <ComprehensionTypeQuestion />
             </form>
         </div>
     )
