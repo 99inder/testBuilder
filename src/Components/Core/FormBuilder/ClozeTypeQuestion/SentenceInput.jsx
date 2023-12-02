@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { FaUnderline } from "react-icons/fa";
 
 const SentenceInput = ({ question, setQuestion }) => {
     const [selectedText, setSelectedText] = useState('');
@@ -22,11 +23,31 @@ const SentenceInput = ({ question, setQuestion }) => {
 
         if (isAlreadyUnderlined) {
             document.execCommand('underline', false, null); // Remove underline
+            removeFromOptions(selectedText);
         } else {
             document.execCommand('insertHTML', false, underlinedText); // Add underline
+            addToOptions(selectedText);
         }
 
         setAllowUnderline(false);
+    };
+
+    const addToOptions = (text) => {
+        setQuestion((prev) => {
+            return {
+                ...prev,
+                options: [...prev.options, text],
+            };
+        });
+    };
+
+    const removeFromOptions = (text) => {
+        setQuestion((prev) => {
+            return {
+                ...prev,
+                options: prev.options.filter((option) => option !== text),
+            };
+        });
     };
 
     const changeHandler = (e) => {
@@ -44,23 +65,25 @@ const SentenceInput = ({ question, setQuestion }) => {
     };
 
     return (
-        <div>
-            <button
-                type="button"
-                className={`border-black border-1px rounded-md  px-4 py-2 ${allowUnderline ? "text-black bg-slate-200" : "text-slate-50 bg-slate-300"}`}
-                disabled={!allowUnderline}
-                onClick={underlineText}
-            >
-                U
-            </button>
+        <div className='group flex flex-col-reverse'>
             <div
                 id="sentenceInput"
+                className='peer'
                 contentEditable
                 style={{ width: '400px', border: '1px solid #ccc', padding: '8px' }}
                 dangerouslySetInnerHTML={{ __html: question.sentence }}
                 onBlur={changeHandler}
                 onMouseUp={updateUnderlineButton}
             />
+            <button
+                type="button"
+                className={`border-black border-1px rounded-lg w-10 flex justify-center items-center border-[1px] ${allowUnderline ? "text-slate-950 bg-slate-200 border-slate-950" : "text-slate-50 bg-slate-300 border-slate-400"} duration-200 aspect-square invisible peer-focus:visible opacity-0 peer-focus:opacity-100`}
+                disabled={!allowUnderline}
+                onClick={underlineText}
+            >
+                <FaUnderline />
+            </button>
+
         </div>
     );
 };

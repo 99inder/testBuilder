@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Preview from './Preview';
 import SentenceInput from './SentenceInput';
+import Options from './Options';
 
 const ClozeTypeQuestion = () => {
 
@@ -17,6 +18,10 @@ const ClozeTypeQuestion = () => {
             />
             <SentenceInput
                 question={question}
+                setQuestion={setQuestion}
+            />
+            <Options
+                options={question.options}
                 setQuestion={setQuestion}
             />
         </div>
