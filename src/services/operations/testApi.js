@@ -1,4 +1,4 @@
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
 import { setLoading, setTestData } from "../../redux/slices/testDataSlice";
 import { apiConnector } from "../apiconnector";
 import { testEndpoints } from "../apis";
@@ -9,7 +9,7 @@ const {
 } = testEndpoints;
 
 export const handleFetchTestsList = async () => {
-    const toastId = toast.loading("Loading...");
+    // const toastId = toast.loading("Loading...");
     try {
 
         let response = await apiConnector("GET", fetchTestsList);
@@ -20,7 +20,7 @@ export const handleFetchTestsList = async () => {
         console.log(error);
 
     }
-    toast.dismiss(toastId);
+    // toast.dismiss(toastId);
 }
 
 export const fetchTestData = (testId) => {

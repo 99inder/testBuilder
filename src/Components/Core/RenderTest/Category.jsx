@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
-const Category = ({ ques }) => {
+const Category = ({ ques, quesIdx }) => {
     const [itemsArr, setItemsArr] = useState([]);
     const [categoriesArr, setCategoriesArr] = useState([]);
 
@@ -140,65 +140,68 @@ const Category = ({ ques }) => {
     };
 
     return (
-        <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable droppableId="items-droppable" direction="horizontal">
-                {(provided) => (
-                    <div ref={provided.innerRef} {...provided.droppableProps} className='flex min-h-[100px] bg-red-400'>
-                        {itemsArr.length > 0 && itemsArr.map((item, index) => (
-                            <Draggable key={`${item}-${index}`} draggableId={`${item}-${index}`} index={index}>
-                                {(provided) => (
-                                    <div
-                                        ref={provided.innerRef}
-                                        {...provided.draggableProps}
-                                        {...provided.dragHandleProps}
-                                        className='border border-black w-fit p-2 m-1 h-full'
-                                    >
-                                        {item}
-                                    </div>
-                                )}
-                            </Draggable>
-                        ))}
-                        {provided.placeholder}
+        <div className='quesCard'>
+            <h3 className='quesNumbering'>Question {quesIdx + 1}</h3>
+            <div className='indent'>
+                <DragDropContext onDragEnd={onDragEnd}>
+                    <Droppable droppableId="items-droppable" direction="horizontal">
+                        {(provided) => (
+                            <div ref={provided.innerRef} {...provided.droppableProps} className='flex min-h-[100px] bg-red-400'>
+                                {itemsArr.length > 0 && itemsArr.map((item, index) => (
+                                    <Draggable key={`${item}-${index}`} draggableId={`${item}-${index}`} index={index}>
+                                        {(provided) => (
+                                            <div
+                                                ref={provided.innerRef}
+                                                {...provided.draggableProps}
+                                                {...provided.dragHandleProps}
+                                                className='border border-black w-fit p-2 m-1 h-full'
+                                            >
+                                                {item}
+                                            </div>
+                                        )}
+                                    </Draggable>
+                                ))}
+                                {provided.placeholder}
+                            </div>
+                        )}
+                    </Droppable>
+
+                    <div className='flex gap-x-10'>
+                        {
+                            categoriesArr.map((category, categoryIdx) => (
+                                <div key={categoryIdx}>
+                                    <p className='text-center'>{category.name}</p>
+                                    <Droppable droppableId={`${category.name}`}>
+                                        {(provided) => (
+                                            <div ref={provided.innerRef} {...provided.droppableProps} className='min-h-[120px] min-w-fit w-[100px] bg-red-400 border border-black border-t-0'>
+                                                {
+                                                    category.items.map((item, idx) => (
+                                                        <Draggable key={`${item}-${idx}`} draggableId={`${item}-${idx}`} index={idx}>
+                                                            {(provided) => (
+                                                                <div
+                                                                    ref={provided.innerRef}
+                                                                    {...provided.draggableProps}
+                                                                    {...provided.dragHandleProps}
+                                                                    className='border border-black w-fit p-2 m-1'
+                                                                >
+                                                                    {item}
+                                                                </div>
+                                                            )}
+                                                        </Draggable>
+
+                                                    ))
+                                                }
+                                                {provided.placeholder}
+                                            </div>
+                                        )}
+                                    </Droppable>
+                                </div>
+                            ))
+                        }
                     </div>
-                )}
-            </Droppable>
-
-            <div className='flex gap-x-10'>
-                {
-                    categoriesArr.map((category, categoryIdx) => (
-                        <div key={categoryIdx}>
-                            <p className='text-center'>{category.name}</p>
-                            <Droppable droppableId={`${category.name}`}>
-                                {(provided) => (
-                                    <div ref={provided.innerRef} {...provided.droppableProps} className='min-h-[120px] min-w-fit w-[100px] bg-red-400 border border-black border-t-0'>
-                                        {
-                                            category.items.map((item, idx) => (
-                                                <Draggable key={`${item}-${idx}`} draggableId={`${item}-${idx}`} index={idx}>
-                                                    {(provided) => (
-                                                        <div
-                                                            ref={provided.innerRef}
-                                                            {...provided.draggableProps}
-                                                            {...provided.dragHandleProps}
-                                                            className='border border-black w-fit p-2 m-1'
-                                                        >
-                                                            {item}
-                                                        </div>
-                                                    )}
-                                                </Draggable>
-
-                                            ))
-                                        }
-                                        {provided.placeholder}
-                                    </div>
-                                )}
-                            </Droppable>
-                        </div>
-                    ))
-                }
+                </DragDropContext>
             </div>
-
-
-        </DragDropContext>
+        </div>
     );
 };
 

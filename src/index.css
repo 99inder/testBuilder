@@ -45,3 +45,7 @@
 .addCircleIcon {
     @apply text-3xl hover:text-emerald-500 active:text-emerald-600 active:scale-90 duration-200
 }
+
+.testTitle {
+    @apply text-3xl font-medium tracking-tighter text-slate-800
+}

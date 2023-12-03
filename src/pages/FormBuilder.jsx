@@ -27,24 +27,35 @@ const FormBuilder = () => {
     }, [allQuestions])
 
     return (
-        <div className='max-w-[1440px] mx-auto grid grid-cols-6 mt-[3.5rem]'>
-            <form
-                className='flex flex-col gap-y-20 col-span-4'
-                onSubmit={handleSubmit}
-            >
-                {
-                    allQuestions.map((ques, index) => {
-                        if (ques.type === "category")
-                            return <CategoryTypeQuestion key={index} quesIndex={index} />
-                        if (ques.type === "cloze")
-                            return <ClozeTypeQuestion key={index} quesIndex={index} />
-                        if (ques.type === "comprehension")
-                            return <ComprehensionTypeQuestion key={index} quesIndex={index} />
-                        else
-                            return <span key={index}></span>
-                    })
-                }
-            </form>
+        <div className='max-w-[1440px] h-full mx-auto grid grid-cols-6 mt-[3.5rem]'>
+            {
+                allQuestions.length
+                    ?
+                    <form
+                        className='flex flex-col gap-y-20 col-span-4'
+                        onSubmit={handleSubmit}
+                    >
+                        {
+                            allQuestions.map((ques, index) => {
+                                if (ques.type === "category")
+                                    return <CategoryTypeQuestion key={index} quesIndex={index} />
+                                if (ques.type === "cloze")
+                                    return <ClozeTypeQuestion key={index} quesIndex={index} />
+                                if (ques.type === "comprehension")
+                                    return <ComprehensionTypeQuestion key={index} quesIndex={index} />
+                                else
+                                    return <span key={index}></span>
+                            })
+                        }
+                    </form>
+                    :
+                    <div className='col-span-4 h- flex justify-center items-center sticky top-20'>
+                        <div className='text-3xl font-semibold text-slate-500'>
+                            No Question Found
+                        </div>
+
+                    </div>
+            }
 
             <div className='w-full col-start-5 col-span-2 flex justify-center'>
                 <div className='h-fit fixed top-[3.5rem] bg-slate-200 px-6 py-3 rounded-md'>
