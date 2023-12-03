@@ -1,10 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PassageInput from './PassageInput';
 import QuestionsSection from './QuestionsSection';
+import { useDispatch } from 'react-redux';
+import { updateQuestion } from '../../../../redux/slices/allQuestionsSlice';
 
-const ComprehensionTypeQuestion = () => {
+const ComprehensionTypeQuestion = ({ quesIndex }) => {
+
+  const dispatch = useDispatch();
 
   const [question, setQuestion] = useState({
+    type: "comprehension",
     passage: "",
     mcq: [{
       ques: "",
@@ -13,16 +18,38 @@ const ComprehensionTypeQuestion = () => {
     }],
   });
 
+  useEffect(() => {
+    const payload = {
+      quesIndex,
+      question
+    };
+    dispatch(updateQuestion(payload));
+
+    // eslint-disable-next-line
+  }, [question]);
+
   return (
-    <div>
-      <PassageInput
-        passage={question.passage}
-        setQuestion={setQuestion}
-      />
-      <QuestionsSection
-        question={question}
-        setQuestion={setQuestion}
-      />
+    <div className='quesCard'>
+
+      {/* Question Numbering */}
+      <h3
+        className='quesNumbering'
+      >
+        Question {quesIndex + 1}
+      </h3>
+
+      <div className='indent'>
+
+        <PassageInput
+          passage={question.passage}
+          setQuestion={setQuestion}
+        />
+        <QuestionsSection
+          mainQuesIndex={quesIndex}
+          question={question}
+          setQuestion={setQuestion}
+        />
+      </div>
     </div>
   )
 }

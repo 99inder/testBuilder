@@ -5,6 +5,7 @@ import { IoIosAddCircleOutline } from "react-icons/io";
 
 const Question = ({
     question,
+    mainQuesIndex,
     quesIndex,
     options,
     answer,
@@ -67,14 +68,22 @@ const Question = ({
         if (newOption.trim() === '')
             return;
 
-        const updatedOptions = [...options, newOption.trim()];
-
         setQuestion(prev => {
             let copyMcqArr = [...prev.mcq];
-            copyMcqArr[quesIndex]["options"] = updatedOptions;
+            let copyMcq = copyMcqArr[quesIndex];
+            let copyOptions = [...copyMcq.options];
+            let updatedOptions = [...copyOptions, newOption.trim()];
+
+            let updatedMcq = copyMcqArr.map((mcq, i) => {
+                if (i === quesIndex)
+                    return { ...mcq, options: updatedOptions }
+                else
+                    return { ...mcq }
+            })
+
             return {
                 ...prev,
-                mcq: copyMcqArr
+                mcq: updatedMcq
             }
         });
 
@@ -94,12 +103,13 @@ const Question = ({
                             className='text-4xl text-slate-400 active:text-slate-600'
                         />
                     </div>
-                    <div>
+                    <div className='ml-2'>
                         <div>
                             <label>
-                                {`Question: ${quesIndex + 1}`}
+                                <p className='title-1'>{`Question ${mainQuesIndex + 1}.${quesIndex + 1}`}</p>
                                 <input
                                     type="text"
+                                    className='inputField mb-inputField'
                                     placeholder='Type Your Question Here'
                                     value={question}
                                     onChange={handleQuestionChange}
@@ -108,13 +118,14 @@ const Question = ({
                         </div>
                         <div>
                             <label>
-                                Options:
+                                <span className='title-2'>Options</span>
                                 <ul>
                                     {options.map((option, index) => (
                                         <li key={index}>
                                             <label>
                                                 <input
                                                     type="radio"
+                                                    className='inputField mb-inputField'
                                                     name={`question-${quesIndex}`}
                                                     value={option}
                                                     checked={answer === option}
@@ -122,6 +133,7 @@ const Question = ({
                                                 />
                                                 <input
                                                     type="text"
+                                                    className='inputField mb-inputField'
                                                     value={option}
                                                     onChange={(e) => handleOptionChange(index, e)}
                                                 />
@@ -129,17 +141,19 @@ const Question = ({
                                         </li>
                                     ))}
                                     <li
-                                    className='flex items-center'
+                                        className='flex items-center'
                                     >
                                         <input
                                             type="text"
+                                            className='inputField mb-inputField'
                                             placeholder={`Add Option ${options.length + 1}`}
                                             value={newOption}
                                             onChange={(e) => setNewOption(e.target.value)}
                                         />
+
                                         <button type="button" onClick={handleAddOption}>
                                             <IoIosAddCircleOutline
-                                                className='text-3xl hover:text-emerald-500 active:text-emerald-600 active:scale-90 duration-200'
+                                                className='addCircleIcon mb-inputField ml-3'
                                             />
                                         </button>
                                     </li>
@@ -148,8 +162,8 @@ const Question = ({
                         </div>
                         <div>
                             <label>
-                                Answer:
-                                <input type="text" value={answer} readOnly />
+                                <span className='title-2'>Answer: </span>
+                                <input type="text" disabled className='inputField mb-inputField' value={answer} readOnly />
                             </label>
                         </div>
 

@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import { IoMdCloseCircle } from 'react-icons/io';
 import useOnClickOutside from '../../../../hooks/useOnClickOutside';
 
 const CategoryInput = ({ question, setQuestion }) => {
@@ -56,19 +57,22 @@ const CategoryInput = ({ question, setQuestion }) => {
     <div>
       {
         question.categories.map((category, idx) => (
-          <div key={idx}>
+          <div key={idx} className='flex items-center gap-x-2'>
             <input
               type="text"
               placeholder={`Category ${idx + 1} (Required)`}
               value={category}
               onChange={(e) => categoryChangeHandler(e, idx)}
+              className='inputField mb-inputField'
             />
             {
               idx >= 2 &&
               <button
+                type='button'
+                className='mb-inputField'
                 onClick={() => deleteCategoryHandler(idx)}
               >
-                X
+                <IoMdCloseCircle className='crossIcon' />
               </button>
             }
           </div>
@@ -79,6 +83,7 @@ const CategoryInput = ({ question, setQuestion }) => {
           type="text"
           placeholder={`Category ${question.categories.length + 1} (Optional)`}
           ref={inputRef}
+          className='inputField mb-inputField'
         />
       }
     </div>

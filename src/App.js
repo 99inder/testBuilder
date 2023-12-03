@@ -3,7 +3,11 @@ import FormBuilder from "./pages/FormBuilder"
 function App() {
   return (
     <div className="App">
-      <FormBuilder />
+      <div
+        className="min-w-screen min-h-screen overflow-x-hidden bg-slate-50"
+      >
+        <FormBuilder />
+      </div>
     </div>
   );
 }

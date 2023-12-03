@@ -18,8 +18,9 @@ const PassageInput = ({ passage, setQuestion }) => {
 
     return (
         <textarea
-            className='w-[200px] h-auto min-h-[50px] border-[1px] border-black p-2 overflow-y-hidden'
+            className='inputField w-2/3 h-auto min-h-[100px]  overflow-y-hidden'
             value={passage}
+            placeholder='Enter the passage here'
             onChange={(e) => {
                 handleChange(e);
                 handleAutoResize(e);

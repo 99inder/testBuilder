@@ -9,3 +9,39 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+.indent {
+    @apply pl-6 mt-6
+}
+
+.title-1{
+    @apply text-slate-500 text-lg font-medium mb-2
+}
+
+.title-2{
+    @apply text-slate-500 font-medium mb-2
+}
+
+.inputField {
+    @apply px-3 py-1 border border-slate-400 rounded-md focus:outline-blue-400 focus:drop-shadow-md
+}
+
+.mb-inputField {
+    @apply mb-3
+}
+
+.quesNumbering {
+    @apply text-xl font-semibold text-slate-600
+}
+
+.quesCard {
+    @apply border-[1px] shadow-lg border-slate-500 rounded-lg px-5 py-2 pb-6 w-full
+}
+
+.crossIcon {
+    @apply text-2xl hover:text-red-500 duration-200
+}
+
+.addCircleIcon {
+    @apply text-3xl hover:text-emerald-500 active:text-emerald-600 active:scale-90 duration-200
+}

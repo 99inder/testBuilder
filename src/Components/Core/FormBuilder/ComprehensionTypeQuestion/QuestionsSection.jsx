@@ -2,6 +2,7 @@ import Question from './Question';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 const QuestionsSection = ({
+  mainQuesIndex,
   question,
   setQuestion
 }) => {
@@ -73,6 +74,7 @@ const QuestionsSection = ({
               <Question
                 key={index}
                 question={q.ques}
+                mainQuesIndex={mainQuesIndex}
                 quesIndex={index}
                 options={q.options}
                 answer={q.answer}

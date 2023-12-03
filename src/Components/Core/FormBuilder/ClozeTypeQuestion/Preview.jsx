@@ -2,9 +2,9 @@ const Preview = ({ previewSentence }) => {
 
     return (
         <div>
-            Preview*
+            <p className="title-1">Preview<span className="text-red-700">*</span></p>
             <p
-                style={{ minHeight: 20, width: 400, border: '1px solid black', wordWrap: 'break-word' }}
+                className="min-h-[50px] bg-slate-100 inputField h-fit w-2/3 border border-black break-words"
                 dangerouslySetInnerHTML={{ __html: previewSentence }}
             />
         </div>
