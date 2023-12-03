@@ -17,6 +17,12 @@ const createTest = async (req, res) => {
     try {
         const inputData = req.body;
 
+        if (!inputData)
+            return res.status(400).json({
+                success: false,
+                message: "Please provide the data"
+            })
+
         // Step 1: Extract and create questions
         const questionData = inputData.questions.map(question => {
 
@@ -79,6 +85,13 @@ const fetchTest = async (req, res) => {
     try {
         let testId = req.params.testId;
 
+        if (!testId) {
+            return res.status(400).json({
+                success: false,
+                message: "TestId not received"
+            })
+        }
+
         const testData = await TestModel.findById(testId)
             .populate('questions')
             .exec();
@@ -89,7 +102,7 @@ const fetchTest = async (req, res) => {
 
         return res.status(200).json({
             success: true,
-            message: 'Data stored successfully',
+            message: 'Test data fetched successfully',
             data: testData
         });
     } catch (error) {
