@@ -19,7 +19,7 @@ const Question = ({
     const handleQuestionChange = (e) => {
         setQuestion((prev) => {
             let newMcqArr = [...prev.mcq];
-            newMcqArr[quesIndex].ques = e.target.value;
+            newMcqArr[quesIndex] = { ...newMcqArr[quesIndex], ques: e.target.value };
             return {
                 ...prev,
                 mcq: newMcqArr,
