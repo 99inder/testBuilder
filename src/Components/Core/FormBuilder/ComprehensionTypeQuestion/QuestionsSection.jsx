@@ -1,5 +1,6 @@
 import Question from './Question';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { IoIosAddCircleOutline } from "react-icons/io";
 
 const QuestionsSection = ({
   mainQuesIndex,
@@ -7,25 +8,25 @@ const QuestionsSection = ({
   setQuestion
 }) => {
 
-  const setAnswer = (quesIndex, newAnswer) => {
-    // make a deep copy of mcqs array
-    let newMcqArr = [...question.mcq];
+  // const setAnswer = (quesIndex, newAnswer) => {
+  //   // make a deep copy of mcqs array
+  //   let newMcqArr = [...question.mcq];
 
-    // get the mcq question data that needs to be updated
-    let updatedMcq = question.mcq[quesIndex];
+  //   // get the mcq question data that needs to be updated
+  //   let updatedMcq = question.mcq[quesIndex];
 
-    // update the answer
-    updatedMcq["answer"] = newAnswer;
+  //   // update the answer
+  //   updatedMcq["answer"] = newAnswer;
 
-    // replace the old mcq question with the updated one
-    newMcqArr[quesIndex] = updatedMcq;
+  //   // replace the old mcq question with the updated one
+  //   newMcqArr[quesIndex] = updatedMcq;
 
-    // update the state with the new data
-    setQuestion((prev) => ({
-      ...prev,
-      mcq: newMcqArr,
-    }));
-  };
+  //   // update the state with the new data
+  //   setQuestion((prev) => ({
+  //     ...prev,
+  //     mcq: newMcqArr,
+  //   }));
+  // };
 
   const addQuestionHandler = () => {
     setQuestion((prev) => ({
@@ -78,7 +79,6 @@ const QuestionsSection = ({
                 quesIndex={index}
                 options={q.options}
                 answer={q.answer}
-                setAnswer={setAnswer}
                 setQuestion={setQuestion}
                 deleteQuestionHandler={deleteQuestionHandler}
                 noOfQues={question.mcq.length}
@@ -90,9 +90,14 @@ const QuestionsSection = ({
       </Droppable>
 
       {/* Add Question Button */}
-      <div>
-        <button type="button" onClick={addQuestionHandler}>
-          Add Question
+      <div className='mt-3'>
+        <button type="button" className='flex items-center gap-x-2 group' onClick={addQuestionHandler}>
+          <span className='text-slate-600 font-medium group-hover:scale-105 duration-200 group-hover:text-emerald-600'>Add Question</span>
+          <span>
+            <IoIosAddCircleOutline
+              className='addCircleIcon'
+            />
+          </span>
         </button>
       </div>
     </DragDropContext>

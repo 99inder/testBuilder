@@ -43,7 +43,7 @@
 }
 
 .addCircleIcon {
-    @apply text-3xl hover:text-emerald-500 active:text-emerald-600 active:scale-90 duration-200
+    @apply text-3xl hover:text-emerald-500 active:text-emerald-600 group-hover:text-emerald-600 active:scale-90 duration-200
 }
 
 .testTitle {

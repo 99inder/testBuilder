@@ -23,6 +23,7 @@ const ComprehensionTypeQuestion = ({ quesIndex }) => {
       quesIndex,
       question
     };
+
     dispatch(updateQuestion(payload));
 
     // eslint-disable-next-line
@@ -44,11 +45,13 @@ const ComprehensionTypeQuestion = ({ quesIndex }) => {
           passage={question.passage}
           setQuestion={setQuestion}
         />
-        <QuestionsSection
-          mainQuesIndex={quesIndex}
-          question={question}
-          setQuestion={setQuestion}
-        />
+        <div className='mt-3'>
+          <QuestionsSection
+            mainQuesIndex={quesIndex}
+            question={question}
+            setQuestion={setQuestion}
+          />
+        </div>
       </div>
     </div>
   )

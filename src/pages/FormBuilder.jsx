@@ -22,12 +22,12 @@ const FormBuilder = () => {
     }
 
     useEffect(() => {
-        console.log(allQuestions)
+        console.log("REDUX STATE UPDATED: ",allQuestions)
         // eslint-disable-next-line
     }, [allQuestions])
 
     return (
-        <div className='max-w-[1440px] h-full mx-auto grid grid-cols-6 mt-[3.5rem]'>
+        <div className='max-w-[1440px] h-full mx-auto lg:grid grid-cols-6 mt-[3.5rem] pb-10'>
             {
                 allQuestions.length
                     ?
@@ -35,6 +35,9 @@ const FormBuilder = () => {
                         className='flex flex-col gap-y-20 col-span-4'
                         onSubmit={handleSubmit}
                     >
+                        <div>
+                            <input className='inputField w-full max-w-[500px]' type="text" required placeholder='Type Test Title Here'/>
+                        </div>
                         {
                             allQuestions.map((ques, index) => {
                                 if (ques.type === "category")
@@ -58,7 +61,7 @@ const FormBuilder = () => {
             }
 
             <div className='w-full col-start-5 col-span-2 flex justify-center'>
-                <div className='h-fit fixed top-[3.5rem] bg-slate-200 px-6 py-3 rounded-md'>
+                <div className='h-fit lg:fixed top-[3.5rem] bg-slate-200 px-6 py-3 rounded-md'>
                     <h3>Add a Question</h3>
                     <select
                         name="quesType"

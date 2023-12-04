@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { PiTrashFill, PiDotsThreeCircleVerticalLight } from "react-icons/pi"
 import { IoIosAddCircleOutline } from "react-icons/io";
+import { MdOutlineClearAll } from "react-icons/md";
 
 const Question = ({
     question,
@@ -9,7 +10,6 @@ const Question = ({
     quesIndex,
     options,
     answer,
-    setAnswer,
     setQuestion,
     deleteQuestionHandler,
     noOfQues,
@@ -27,36 +27,54 @@ const Question = ({
         });
     };
 
+    const setAnswer = (quesIndex, newAnswer) => {
+        setQuestion((prev) => {
+            const newMcqArr = prev.mcq.map((mcq, index) => {
+                if (index === quesIndex) {
+                    console.log("New answer:", newAnswer);
+                    return {
+                        ...mcq,
+                        answer: newAnswer,
+                    };
+                }
+                return mcq;
+            });
+
+            return {
+                ...prev,
+                mcq: newMcqArr,
+            };
+        });
+    };
+
     const handleOptionChange = (optionIndex, e) => {
         const newOptionValue = e.target.value.trim();
 
-        if (newOptionValue !== "") {
-            setQuestion((prev) => {
-                let newMcqArr = [...prev.mcq];
-                newMcqArr[quesIndex].options[optionIndex] = newOptionValue;
+        setQuestion((prev) => {
+            let newMcqArr = [...prev.mcq];
+            let updatedOptions = [...newMcqArr[quesIndex].options];
+
+            if (newOptionValue !== "") {
+                updatedOptions[optionIndex] = newOptionValue;
 
                 if (e.target.checked) {
                     setAnswer(quesIndex, newOptionValue);
                 }
-
-                return {
-                    ...prev,
-                    mcq: newMcqArr,
-                };
-            });
-        } else {
-            setQuestion((prev) => {
-                let newMcqArr = [...prev.mcq];
-                newMcqArr[quesIndex].options.splice(optionIndex, 1);
-
+            } else {
+                updatedOptions.splice(optionIndex, 1);
                 setAnswer(quesIndex, '');
+            }
 
-                return {
-                    ...prev,
-                    mcq: newMcqArr,
-                };
-            });
-        }
+            newMcqArr[quesIndex] = {
+                ...newMcqArr[quesIndex],
+                options: updatedOptions,
+            };
+
+            return {
+                ...prev,
+                mcq: newMcqArr,
+            };
+        });
     };
 
     const handleClearSelection = () => {
@@ -125,11 +143,11 @@ const Question = ({
                                             <label>
                                                 <input
                                                     type="radio"
-                                                    className='inputField mb-inputField'
+                                                    className='inputField mb-inputField mr-3'
                                                     name={`question-${quesIndex}`}
                                                     value={option}
                                                     checked={answer === option}
-                                                    onChange={(e) => handleOptionChange(index, e)}
+                                                    onClick={(e) => handleOptionChange(index, e)}
                                                 />
                                                 <input
                                                     type="text"
@@ -160,31 +178,36 @@ const Question = ({
                                 </ul>
                             </label>
                         </div>
-                        <div>
+
+                        {/* Display Selected Answer */}
+                        {/* <div>
                             <label>
                                 <span className='title-2'>Answer: </span>
                                 <input type="text" disabled className='inputField mb-inputField' value={answer} readOnly />
                             </label>
+                        </div> */}
+
+                        <div className='flex items-center gap-x-6'>
+                            {/* Clear Selection Button */}
+                            <button type="button" onClick={handleClearSelection} className='text-xl p-2 h-fit bg-slate-200 rounded-full border border-slate-700'>
+                                <MdOutlineClearAll />
+                            </button>
+
+                            {/* Delete Question Button */}
+                            {noOfQues !== 1 && (
+                                <div className='font-semibold h-fit flex justify-center'>
+                                    <button
+                                        type="button"
+                                        className='bg-slate-200 group p-2 border border-slate-700 text-xl hover:text-red-600 hover:border-[1px] rounded-full hover:border-red-600 active:border-emerald-600 active:text-emerald-600 active:scale-90 duration-200'
+                                        onClick={() => deleteQuestionHandler(quesIndex)}
+                                    >
+                                        <PiTrashFill
+                                            className='group-hover:scale-125 duration-200'
+                                        />
+                                    </button>
+                                </div>
+                            )}
                         </div>
-
-                        {/* Clear Selection Button */}
-                        <button type="button" onClick={handleClearSelection}>
-                            Clear Selection
-                        </button>
-
-                        {/* Delete Question Button */}
-                        {noOfQues !== 1 && (
-                            <div className='my-5 font-semibold'>
-                                <button
-                                    type="button"
-                                    onClick={() => deleteQuestionHandler(quesIndex)}
-                                >
-                                    <PiTrashFill
-                                        className='text-3xl hover:text-red-600 hover:border-[1px] hover:p-[1px] rounded-full border-red-600 active:border-emerald-600 active:text-emerald-600 active:scale-90 duration-200'
-                                    />
-                                </button>
-                            </div>
-                        )}
                     </div>
                 </div>
             )}

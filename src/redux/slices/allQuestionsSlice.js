@@ -53,7 +53,13 @@ export const allQuestionsSlice = createSlice({
             const quesIndex = action.payload.quesIndex;
             const quesData = action.payload.question;
 
-            state.questions.splice(quesIndex, 1, quesData);
+            const newQuestions = [...state.questions]; // Create a shallow copy of the questions array
+            newQuestions[quesIndex] = quesData; // Update the specific question at quesIndex
+
+            console.log("DATA>>>",quesData);
+
+            state.questions = newQuestions;
+            // console.log("REACHED")
         },
     },
 })
