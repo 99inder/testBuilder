@@ -56,11 +56,11 @@ const ItemInput = ({ question, setQuestion }) => {
         <div>
             <div className='w-2/3 grid grid-cols-2'>
                 <p className='title-1'>Item</p>
-                <p className='title-1'>Belongs To</p>
+                <p className='title-1 hidden md:block'>Belongs To</p>
             </div>
             {
                 question.items.map((item, index) => (
-                    <div className='w-2/3 grid grid-cols-2' key={index}>
+                    <div className='w-2/3 md:grid grid-cols-2 mb-5 md:mb-0' key={index}>
                         <span className='flex items-center gap-x-2'>
                             <input
                                 type="text"

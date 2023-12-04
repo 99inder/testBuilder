@@ -39,7 +39,7 @@
 }
 
 .crossIcon {
-    @apply text-2xl hover:text-red-500 duration-200
+    @apply text-2xl hover:text-red-500 duration-200 cursor-pointer
 }
 
 .addCircleIcon {

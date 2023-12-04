@@ -69,16 +69,15 @@ const SentenceInput = ({ question, setQuestion }) => {
             <label htmlFor='sentenceInput' className='text-sm font-medium italic'>Enter Sentence Above</label>
             <div
                 id="sentenceInput"
-                className='peer inputField'
+                className='inputField md:w-[400px]'
                 contentEditable
-                style={{ width: '400px', border: '1px solid #ccc', padding: '8px' }}
                 dangerouslySetInnerHTML={{ __html: question.sentence }}
                 onBlur={changeHandler}
                 onMouseUp={updateUnderlineButton}
             />
             <button
                 type="button"
-                className={`border-black border-1px rounded-lg w-10 flex justify-center items-center border-[1px] ${allowUnderline ? "text-slate-950 bg-slate-200 border-slate-950" : "text-slate-50 bg-slate-300 border-slate-400"} duration-200 aspect-square invisible peer-focus:visible opacity-0 peer-focus:opacity-100 my-2`}
+                className={`border-black border-1px rounded-lg w-10 flex justify-center items-center border-[1px] ${allowUnderline ? "text-slate-950 bg-slate-200 border-slate-950" : "text-slate-50 bg-slate-300 border-slate-400"} duration-200 aspect-square my-2`}
                 disabled={!allowUnderline}
                 onClick={underlineText}
             >

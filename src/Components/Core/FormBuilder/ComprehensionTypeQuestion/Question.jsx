@@ -114,17 +114,24 @@ const Question = ({
                 <div
                     ref={provided.innerRef}
                     {...provided.draggableProps}
-                    className='flex'
+                    className='flex py-5 border-b-2 border-slate-300 '
                 >
-                    <div {...provided.dragHandleProps}>
+                    <div {...provided.dragHandleProps} className='hidden md:block'>
                         <PiDotsThreeCircleVerticalLight
                             className='text-4xl text-slate-400 active:text-slate-600'
                         />
                     </div>
-                    <div className='ml-2'>
+                    <div className='md:ml-2'>
                         <div>
                             <label>
-                                <p className='title-1'>{`Question ${mainQuesIndex + 1}.${quesIndex + 1}`}</p>
+                                <div className='flex items-center mb-2 gap-x-2'>
+                                    <div {...provided.dragHandleProps} className='md:hidden'>
+                                        <PiDotsThreeCircleVerticalLight
+                                            className='text-4xl text-slate-400 active:text-slate-600'
+                                        />
+                                    </div>
+                                    <p className='title-1 !mb-0'>{`Question ${mainQuesIndex + 1}.${quesIndex + 1}`}</p>
+                                </div>
                                 <input
                                     type="text"
                                     className='inputField mb-inputField'

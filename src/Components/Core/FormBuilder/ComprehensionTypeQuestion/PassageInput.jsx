@@ -18,7 +18,7 @@ const PassageInput = ({ passage, setQuestion }) => {
 
     return (
         <textarea
-            className='inputField w-2/3 h-auto min-h-[100px]  overflow-y-hidden'
+            className='inputField !w-full md:w-2/3 h-auto min-h-[100px] verflow-y-hidden'
             value={passage}
             placeholder='Enter the passage here'
             onChange={(e) => {
