@@ -49,3 +49,7 @@
 .testTitle {
     @apply text-3xl font-medium tracking-tighter text-slate-800
 }
+
+.submitBtn {
+    @apply w-full py-3 bg-yellow-400 text-black font-semibold rounded-md border border-black hover:font-bold hover:drop-shadow-md active:drop-shadow-lg duration-200 active:bg-yellow-500 active:scale-95
+}

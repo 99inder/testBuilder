@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
+    loading: false,
+    testTitle: "",
     noOfQuestions: 0,
     questions: [],
 }
@@ -9,6 +11,12 @@ export const allQuestionsSlice = createSlice({
     name: 'allQuestions',
     initialState,
     reducers: {
+        setLoading: (state, action) => {
+            state.loading = action.payload;
+        },
+        updateTestTitle: (state, action) => {
+            state.testTitle = action.payload.testTitle
+        },
         addQuestion: (state, action) => {
             const quesType = action.payload;
             let defaultSkeleton;
@@ -56,10 +64,7 @@ export const allQuestionsSlice = createSlice({
             const newQuestions = [...state.questions]; // Create a shallow copy of the questions array
             newQuestions[quesIndex] = quesData; // Update the specific question at quesIndex
 
-            console.log("DATA>>>", quesData);
-
             state.questions = newQuestions;
-            // console.log("REACHED")
         },
         reorderQuestions: (state, action) => {
             const { sourceIndex, destinationIndex } = action.payload;
@@ -95,10 +100,15 @@ export const allQuestionsSlice = createSlice({
             state.questions = updatedQuestions;
             state.noOfQuestions = updatedQuestions.length;
         },
+        resetTestBuilderState: (state) => {
+            state.testTitle = "";
+            state.noOfQuestions = 0;
+            state.questions = [];
+        }
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { addQuestion, updateQuestion, reorderQuestions, deleteQuestion } = allQuestionsSlice.actions
+export const { setLoading, updateTestTitle, addQuestion, updateQuestion, reorderQuestions, deleteQuestion, resetTestBuilderState } = allQuestionsSlice.actions
 
 export default allQuestionsSlice.reducer

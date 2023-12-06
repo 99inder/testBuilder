@@ -2,19 +2,25 @@ import { useSelector } from 'react-redux';
 import CategoryTypeQuestion from '../Components/Core/FormBuilder/CategoryTypeQuestion';
 import ClozeTypeQuestion from '../Components/Core/FormBuilder/ClozeTypeQuestion';
 import ComprehensionTypeQuestion from '../Components/Core/FormBuilder/ComprehensionTypeQuestion';
-import { addQuestion, reorderQuestions } from '../redux/slices/allQuestionsSlice';
+import { addQuestion, reorderQuestions, updateTestTitle } from '../redux/slices/allQuestionsSlice';
 import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { submitCreatedTest } from '../services/operations/submitCreatedTestApi';
+
 
 const FormBuilder = () => {
+    const dispatch = useDispatch();
+
+    const submitBtnRef = useRef();
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Form Submit Triggered!");
+        dispatch(submitCreatedTest(testFormData));
     }
 
-    const dispatch = useDispatch();
-    const allQuestions = useSelector(state => state.allQuestions.questions);
+    const testFormData = useSelector(state => state.allQuestions);
+    const allQuestions = testFormData.questions;
 
     const handleAddQuestion = (e) => {
         const quesType = e.target.value;
@@ -22,8 +28,12 @@ const FormBuilder = () => {
         e.target.value = "";
     }
 
+    const handleTitleChange = (e) => {
+        dispatch(updateTestTitle({ [e.target.name]: e.target.value }));
+    }
+
     useEffect(() => {
-        console.log("REDUX STATE UPDATED: ", allQuestions)
+        console.log("REDUX STATE UPDATED: ", allQuestions);
         // eslint-disable-next-line
     }, [allQuestions])
 
@@ -44,7 +54,7 @@ const FormBuilder = () => {
                 {allQuestions.length ? (
                     <form className='flex flex-col gap-y-5 col-span-4' onSubmit={handleSubmit}>
                         <div>
-                            <input className='inputField w-full max-w-[500px]' type="text" required placeholder='Type Test Title Here' />
+                            <input className='inputField w-full max-w-[500px]' name='testTitle' value={testFormData.testTitle} type="text" onChange={handleTitleChange} required placeholder='Type Test Title Here' />
                         </div>
 
                         <Droppable droppableId="questions">
@@ -61,6 +71,9 @@ const FormBuilder = () => {
                                 </div>
                             )}
                         </Droppable>
+
+                        <button type='submit' disabled={testFormData.loading} className='hidden' ref={submitBtnRef}>
+                        </button>
                     </form>
                 ) : (
                     <div className='col-span-4 h- flex justify-center items-center sticky top-20 mb-10'>
@@ -82,6 +95,15 @@ const FormBuilder = () => {
                             <option value="cloze">Cloze</option>
                             <option value="comprehension">Comprehension</option>
                         </select>
+                        {
+                            testFormData?.noOfQuestions > 0
+                            &&
+                            <div className='mt-5 w-full'>
+                                <button disabled={testFormData.loading} onClick={() => submitBtnRef.current.click()} className={`submitBtn ${testFormData.loading && "opacity-50 !font-semibold"}`}>
+                                    <p>Submit</p>
+                                </button>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

@@ -31,7 +31,6 @@ const Question = ({
         setQuestion((prev) => {
             const newMcqArr = prev.mcq.map((mcq, index) => {
                 if (index === quesIndex) {
-                    console.log("New answer:", newAnswer);
                     return {
                         ...mcq,
                         answer: newAnswer,

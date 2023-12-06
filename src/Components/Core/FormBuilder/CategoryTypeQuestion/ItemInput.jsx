@@ -40,8 +40,6 @@ const ItemInput = ({ question, setQuestion }) => {
             }
         ];
 
-        console.log(updatedItems);
-
         setQuestion(prev => {
             return {
                 ...prev,

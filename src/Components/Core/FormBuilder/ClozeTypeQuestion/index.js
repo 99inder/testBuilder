@@ -24,7 +24,6 @@ const ClozeTypeQuestion = ({ quesIndex }) => {
             quesIndex,
             question
         };
-        console.log("PAYLOAD>>>", payload)
         dispatch(updateQuestion(payload));
 
         // eslint-disable-next-line

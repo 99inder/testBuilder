@@ -4,3 +4,5 @@ export const testEndpoints = {
     fetchTestsList: BASE_URL + "/fetchTestsList",
     fetchTest: BASE_URL + "/fetchTest",
 }
+
+export const createTestEndpoint = BASE_URL + "/create";
